@@ -2,66 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Nonlinear Equation Solver - Home</title>
+    <title>Equation Solver</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Nonlinear Equation Solver</h1>
+    <h1>Equation Solver</h1>
     <div
       class="main-container"
       style="flex-direction: column; align-items: center; gap: 32px"
     >
-      <div
-        style="
-          background: #232323;
-          border-radius: 14px;
-          box-shadow: 0 2px 16px 0 #000a;
-          padding: 32px 28px;
-          min-width: 340px;
-          max-width: 400px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 24px;
-        "
-      >
-        <h2 style="color: #4f8cff; font-size: 1.3rem; margin-bottom: 8px">
-          Choose a Method
-        </h2>
-        <button
-          class="method-btn"
-          onclick="window.location.href='bissection.html'"
-        >
-          Bisection Method
-        </button>
-        <button
-          class="method-btn"
-          disabled
-          style="opacity: 0.5; cursor: not-allowed"
-        >
-          False Position (Coming Soon)
-        </button>
-        <button
-          class="method-btn"
-          disabled
-          style="opacity: 0.5; cursor: not-allowed"
-        >
-          Newton-Raphson (Coming Soon)
-        </button>
-        <button
-          class="method-btn"
-          disabled
-          style="opacity: 0.5; cursor: not-allowed"
-        >
-          Secant (Coming Soon)
-        </button>
-        <button
-          class="method-btn"
-          onclick="window.location.href='linear_iteration.html'"
-        >
-          Linear Iteration Method
-        </button>
+      <div class="solver-outer">
+        <h3 class="solver-title">Non Linear Solvers</h3>
+        <div class="solver-inner">
+          <h3 class="solver-subtitle">Choose a Method</h3>
+          <button
+            class="method-btn"
+            onclick="window.location.href='bissection.html'"
+          >
+            Bisection Method
+          </button>
+          <button
+            class="method-btn"
+            onclick="window.location.href='linear_iteration.html'"
+          >
+            Linear Iteration Method
+          </button>
+        </div>
+      </div>
+      <div class="solver-outer">
+        <h3 class="solver-title">Linear Solvers</h3>
+        <div class="solver-inner">
+          <h3 class="solver-subtitle">Choose a Method</h3>
+          <button
+            class="method-btn"
+            onclick="window.location.href='gauss.html'"
+          >
+            Gauss Elimination Method
+          </button>
+        </div>
       </div>
     </div>
   </body>
