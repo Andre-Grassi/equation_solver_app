@@ -270,3 +270,16 @@ button:hover {
   font-size: 1.15rem;
   margin-bottom: 8px;
 }
+
+input.matrixA,
+input.vectorB {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input.matrixA::-webkit-outer-spin-button,
+input.matrixA::-webkit-inner-spin-button,
+input.vectorB::-webkit-outer-spin-button,
+input.vectorB::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
