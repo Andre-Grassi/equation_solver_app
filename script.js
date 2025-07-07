@@ -9,6 +9,10 @@ document.getElementById('solver-form').addEventListener('submit', function (e) {
   const xl = parseFloat(document.getElementById('xl').value)
   const xu = parseFloat(document.getElementById('xu').value)
   const resultadoDiv = document.getElementById('resultado')
+  const maxIterInput = document.getElementById('maxIter').value
+  const epsilonInput = document.getElementById('epsilon').value
+  const maxIter = maxIterInput ? parseInt(maxIterInput) : 50
+  const epsilon = epsilonInput ? parseFloat(epsilonInput) : 1e-6
 
   // Replace ^ with Math.pow for power operations (e.g., x^3 -> Math.pow(x,3))
   funcaoStr = funcaoStr.replace(
@@ -26,14 +30,24 @@ document.getElementById('solver-form').addEventListener('submit', function (e) {
     resultadoDiv.textContent = 'Invalid function! Please check the expression.'
     return
   }
+
+  // Call the bisection method and show the result
+  let root
+  try {
+    root = bissectionMethod(f, xl, xu, epsilon, maxIter)
+    resultadoDiv.textContent = `Root found: x = ${root}\nInterval: [${xl}, ${xu}]\nEpsilon: ${epsilon}\nMax Iterations: ${maxIter}`
+  } catch (err) {
+    resultadoDiv.textContent = 'Error during calculation: ' + err.message
+  }
 })
 
 function bissectionMethod(f, xl, xu, epsilon = 1e-7, maxIterations = Infinity) {
   let iteration = 1
   let relativeError = Infinity
   let xm_old = Infinity
+  let xm
   do {
-    let xm = (xl + xu) / 2
+    xm = (xl + xu) / 2
 
     // Test the function at the midpoint
     if (f(xm) === 0) {
