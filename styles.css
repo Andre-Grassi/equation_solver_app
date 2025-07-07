@@ -137,6 +137,26 @@ button:hover {
   margin-bottom: 6px;
 }
 
+.method-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #4f8cff 0%, #2353a6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: background 0.2s, transform 0.1s, opacity 0.2s;
+}
+
+.method-btn:hover:enabled {
+  background: linear-gradient(90deg, #2353a6 0%, #4f8cff 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
 @keyframes result-blink {
   0% {
     box-shadow: 0 2px 12px 0 #0007, 0 0 0 0px #00ff6a;
