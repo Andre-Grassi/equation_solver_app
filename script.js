@@ -36,6 +36,9 @@ document.getElementById('solver-form').addEventListener('submit', function (e) {
   try {
     root = bissectionMethod(f, xl, xu, epsilon, maxIter)
     resultadoDiv.textContent = `x = ${root}`
+    resultadoDiv.classList.remove('blink')
+    void resultadoDiv.offsetWidth // trigger reflow for animation restart
+    resultadoDiv.classList.add('blink')
   } catch (err) {
     resultadoDiv.textContent = 'Error during calculation: ' + err.message
   }

@@ -136,3 +136,22 @@ button:hover {
 .dropdown-content input {
   margin-bottom: 6px;
 }
+
+@keyframes result-blink {
+  0% {
+    box-shadow: 0 2px 12px 0 #0007, 0 0 0 0px #00ff6a;
+  }
+  30% {
+    box-shadow: 0 2px 12px 0 #0007, 0 0 0 8px #00ff6a88;
+  }
+  60% {
+    box-shadow: 0 2px 12px 0 #0007, 0 0 0 4px #00ff6a44;
+  }
+  100% {
+    box-shadow: 0 2px 12px 0 #0007, 0 0 0 0px #00ff6a00;
+  }
+}
+
+#resultado.blink {
+  animation: result-blink 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
