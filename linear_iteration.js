@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultadoDiv = document.getElementById('resultado')
     const maxIterInput = document.getElementById('maxIter').value
     const epsilonInput = document.getElementById('epsilon').value
+    // Get stopping criteria from checkboxes
+    const stopRel = document.getElementById('stopRel').checked
+    const stopAbs = document.getElementById('stopAbs').checked
+    const stopFx = document.getElementById('stopFx').checked
+    const stopCriteria = { relative: stopRel, absolute: stopAbs, fx: stopFx }
     const maxIter = maxIterInput ? parseInt(maxIterInput) : 50
     const epsilon = epsilonInput ? parseFloat(epsilonInput) : 1e-6
 
@@ -56,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return
     }
 
-    const root = linearIterationMethod(f, g, x0, epsilon, maxIter)
+    const root = linearIterationMethod(f, g, x0, epsilon, maxIter, stopCriteria)
     if (root === undefined) {
       resultadoDiv.textContent = 'No root found or method did not converge.'
     } else {
@@ -73,20 +78,33 @@ function linearIterationMethod(
   g,
   x0,
   epsilon = 1e-7,
-  maxIterations = Infinity
+  maxIterations = Infinity,
+  stopCriteria = { relative: true, absolute: false, fx: false }
 ) {
   let iteration = 1
-  let relativeError = Infinity
   let xOld = x0
   let xNew
   let converged = false
+  let relError = Infinity
+  let absError = Infinity
+  let fxError = Infinity
 
   do {
     xNew = g(xOld)
-    iteration++
-    relativeError = Math.abs((xNew - xOld) / xNew) * 100
+    relError = Math.abs((xNew - xOld) / (xNew || 1))
+    absError = Math.abs(xNew - xOld)
+    fxError = Math.abs(f(xNew))
+    if (
+      (stopCriteria.relative && relError <= epsilon) ||
+      (stopCriteria.absolute && absError <= epsilon) ||
+      (stopCriteria.fx && fxError <= epsilon)
+    ) {
+      converged = true
+      break
+    }
     xOld = xNew
-  } while (iteration <= maxIterations && relativeError > epsilon)
+    iteration++
+  } while (iteration <= maxIterations)
 
-  return xNew
+  return converged ? xNew : undefined
 }

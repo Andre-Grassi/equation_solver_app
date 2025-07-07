@@ -19,12 +19,15 @@ h1 {
 }
 
 .main-container {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
   margin-top: 32px;
+  width: 100%;
+  min-height: 0;
 }
 
 form {
@@ -38,6 +41,25 @@ form {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+form#linear-form {
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4f8cff #232323;
+}
+
+form#linear-form::-webkit-scrollbar {
+  width: 8px;
+}
+form#linear-form::-webkit-scrollbar-thumb {
+  background: #4f8cff;
+  border-radius: 6px;
+}
+form#linear-form::-webkit-scrollbar-track {
+  background: #232323;
+  border-radius: 6px;
 }
 
 label {
@@ -119,15 +141,25 @@ button:hover {
 }
 
 .dropdown-content {
-  overflow: hidden;
+  display: block;
+  overflow: visible;
   max-height: 0;
   opacity: 0;
   transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s;
   will-change: max-height, opacity;
+  position: relative;
+}
+
+.dropdown-content > * {
+  display: none;
+}
+
+.dropdown-content.open > * {
+  display: block;
 }
 
 .dropdown-content.open {
-  max-height: 200px;
+  max-height: 600px;
   opacity: 1;
   margin-top: 10px;
 }
@@ -135,6 +167,28 @@ button:hover {
 .dropdown-content label,
 .dropdown-content input {
   margin-bottom: 6px;
+}
+
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.dropdown-content .stop-criteria-group {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  gap: 0;
+}
+
+.dropdown-content .stop-criteria-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 400;
+  color: #bdbdbd;
+  font-size: 0.98rem;
 }
 
 .method-btn {
