@@ -36,7 +36,7 @@
               id="maxIter"
               step="1"
               min="1"
-              placeholder="Default: infinite"
+              placeholder="Default: 100"
             />
             <label for="epsilon">Epsilon (tolerance, optional):</label>
             <input
@@ -46,15 +46,15 @@
               min="0"
               placeholder="Default: 1e-7"
             />
-            <label>Stopping criteria (select one or more):</label>
+            <label>Stopping criteria (aside from max iterations):</label>
             <div class="stop-criteria-group">
               <label
-                ><input type="checkbox" id="stopRel" checked /> Relative error
-                |xₙ₊₁ - xₙ|/|xₙ₊₁| &lt; ε</label
+                ><input type="checkbox" id="stopRootDiff" checked /> (| xₙ₊₁ -
+                xₙ | / | xₙ₊₁ |) * 100 &lt; ε</label
               >
               <label
-                ><input type="checkbox" id="stopAbs" /> Absolute error |xₙ₊₁ -
-                xₙ| &lt; ε</label
+                ><input type="checkbox" id="stopFuncDiff" checked /> (| f(xₙ₊₁)
+                - f(xₙ) | / | f(xₙ₊₁| )) * 100 &lt; ε</label
               >
               <label
                 ><input type="checkbox" id="stopFx" /> |f(xₙ₊₁)| &lt; ε</label

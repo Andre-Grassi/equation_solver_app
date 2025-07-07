@@ -24,12 +24,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const maxIterInput = document.getElementById('maxIter').value
     const epsilonInput = document.getElementById('epsilon').value
     // Get stopping criteria from checkboxes
-    const stopRel = document.getElementById('stopRel').checked
-    const stopAbs = document.getElementById('stopAbs').checked
+    const stopRootDiff = document.getElementById('stopRootDiff').checked
+    const stopFuncDiff = document.getElementById('stopFuncDiff').checked
     const stopFx = document.getElementById('stopFx').checked
-    const stopCriteria = { relative: stopRel, absolute: stopAbs, fx: stopFx }
-    const maxIter = maxIterInput ? parseInt(maxIterInput) : 50
-    const epsilon = epsilonInput ? parseFloat(epsilonInput) : 1e-6
+    const stopCriteria = {
+      rootDiff: stopRootDiff,
+      funcDiff: stopFuncDiff,
+      fxError: stopFx,
+    }
+    const maxIter = maxIterInput ? parseInt(maxIterInput) : 100
+    const epsilon = epsilonInput ? parseFloat(epsilonInput) : 1e-7
 
     // Replace ^ with Math.pow for power operations (e.g., x^3 -> Math.pow(x,3))
     gxStr = gxStr.replace(
@@ -61,7 +65,14 @@ document.addEventListener('DOMContentLoaded', function () {
       return
     }
 
-    const root = linearIterationMethod(f, g, x0, epsilon, maxIter, stopCriteria)
+    let root
+    try {
+      root = linearIterationMethod(f, g, x0, epsilon, maxIter, stopCriteria)
+    } catch (err) {
+      resultadoDiv.textContent = 'Error during calculation: ' + err.message
+      return
+    }
+
     if (root === undefined) {
       resultadoDiv.textContent = 'No root found or method did not converge.'
     } else {
@@ -78,33 +89,43 @@ function linearIterationMethod(
   g,
   x0,
   epsilon = 1e-7,
-  maxIterations = Infinity,
-  stopCriteria = { relative: true, absolute: false, fx: false }
+  maxIterations,
+  stopCriteria
 ) {
   let iteration = 1
   let xOld = x0
   let xNew
-  let converged = false
-  let relError = Infinity
-  let absError = Infinity
   let fxError = Infinity
+  let rootDiff
+  let funcDiff
+  let stop = false
+
+  if (
+    !stopCriteria.rootDiff &&
+    !stopCriteria.funcDiff &&
+    !stopCriteria.fxError &&
+    maxIterations === Infinity
+  ) {
+    throw new Error(
+      'At least one stopping criterion must be enabled or maxIterations must be finite.'
+    )
+  }
 
   do {
     xNew = g(xOld)
-    relError = Math.abs((xNew - xOld) / (xNew || 1))
-    absError = Math.abs(xNew - xOld)
-    fxError = Math.abs(f(xNew))
-    if (
-      (stopCriteria.relative && relError <= epsilon) ||
-      (stopCriteria.absolute && absError <= epsilon) ||
-      (stopCriteria.fx && fxError <= epsilon)
-    ) {
-      converged = true
-      break
-    }
+    if (stopCriteria.rootDiff) rootDiff = Math.abs((xNew - xOld) / xNew)
+    if (stopCriteria.funcDiff) funcDiff = Math.abs(f(xNew) - f(xOld) / f(xNew))
+    if (stopCriteria.fxError) fxError = Math.abs(f(xNew))
+
     xOld = xNew
     iteration++
-  } while (iteration <= maxIterations)
 
-  return converged ? xNew : undefined
+    stop =
+      (stopCriteria.rootDiff && rootDiff * 100 <= epsilon) ||
+      (stopCriteria.funcDiff && funcDiff * 100 <= epsilon) ||
+      (stopCriteria.fxError && fxError <= epsilon) ||
+      iteration > maxIterations
+  } while (!stop)
+
+  return xNew
 }
