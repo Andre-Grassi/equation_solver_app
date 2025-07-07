@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const toggle = document.getElementById('dropdownToggle')
   const content = document.getElementById('dropdownContent')
+
   if (toggle && content) {
     toggle.addEventListener('click', function () {
       const isOpen = content.classList.toggle('open')

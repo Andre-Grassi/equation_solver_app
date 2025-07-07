@@ -169,21 +169,21 @@ button:hover {
   margin-bottom: 6px;
 }
 
-.dropdown-content {
+.dropdown-content.open {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-top: 6px;
 }
 
-.dropdown-content .stop-criteria-group {
+.dropdown-content.open .stop-criteria-group {
   display: block;
   width: 100%;
   margin-top: 6px;
   gap: 0;
 }
 
-.dropdown-content .stop-criteria-group label {
+.dropdown-content.open .stop-criteria-group label {
   display: block;
   margin-bottom: 4px;
   font-weight: 400;
