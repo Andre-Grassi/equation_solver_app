@@ -1,0 +1,138 @@
+body {
+  background: #181818;
+  color: #f5f5f5;
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 32px;
+}
+
+form {
+  background: #232323;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px 0 #000a;
+  padding: 32px 28px 24px 28px;
+  min-width: 340px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  color: #bdbdbd;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+input,
+textarea {
+  background: #181818;
+  color: #f5f5f5;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  transition: border 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border: 1.5px solid #4f8cff;
+  outline: none;
+}
+
+button {
+  background: linear-gradient(90deg, #4f8cff 0%, #2353a6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #2353a6 0%, #4f8cff 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
+#resultado {
+  background: #232323;
+  border-radius: 10px;
+  padding: 20px;
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  min-width: 340px;
+  max-width: 400px;
+  word-break: break-word;
+  box-shadow: 0 2px 12px 0 #0007;
+  margin-top: 0;
+}
+
+.dropdown-container {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  background: #232323;
+  color: #bdbdbd;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 0;
+}
+
+.dropdown-toggle.open {
+  color: #4f8cff;
+}
+
+.dropdown-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s;
+  will-change: max-height, opacity;
+}
+
+.dropdown-content.open {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 10px;
+}
+
+.dropdown-content label,
+.dropdown-content input {
+  margin-bottom: 6px;
+}

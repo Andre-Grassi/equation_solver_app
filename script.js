@@ -35,7 +35,7 @@ document.getElementById('solver-form').addEventListener('submit', function (e) {
   let root
   try {
     root = bissectionMethod(f, xl, xu, epsilon, maxIter)
-    resultadoDiv.textContent = `Root found: x = ${root}\nInterval: [${xl}, ${xu}]\nEpsilon: ${epsilon}\nMax Iterations: ${maxIter}`
+    resultadoDiv.textContent = `x = ${root}`
   } catch (err) {
     resultadoDiv.textContent = 'Error during calculation: ' + err.message
   }
@@ -68,3 +68,17 @@ function bissectionMethod(f, xl, xu, epsilon = 1e-7, maxIterations = Infinity) {
 
   return xm
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.getElementById('dropdownToggle')
+  const content = document.getElementById('dropdownContent')
+  if (toggle && content) {
+    toggle.addEventListener('click', function () {
+      const isOpen = content.classList.toggle('open')
+      toggle.classList.toggle('open', isOpen)
+      toggle.textContent = isOpen
+        ? 'Optional Parameters ▲'
+        : 'Optional Parameters ▼'
+    })
+  }
+})
